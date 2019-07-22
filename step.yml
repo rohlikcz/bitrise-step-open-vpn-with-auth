@@ -12,9 +12,9 @@ description: |
   You can easily retrieve the contents of Base64 with the following command.
 
   `$ base64 <certificate or private key file path>`
-website: https://github.com/justice3120/bitrise-step-open-vpn
-source_code_url: https://github.com/justice3120/bitrise-step-open-vpn
-support_url: https://github.com/justice3120/bitrise-step-open-vpn/issues
+website: https://github.com/alikayhan/bitrise-step-open-vpn
+source_code_url: https://github.com/alikayhan/bitrise-step-open-vpn
+support_url: https://github.com/alikayhan/bitrise-step-open-vpn/issues
 host_os_tags:
   - osx-10.10
   - ubuntu-16.04
@@ -50,13 +50,29 @@ inputs:
         ex2. hoge.com
       is_expand: true
       is_required: true
-  - port: 1194
+  - vpn_dns:
+    opts:
+      title: "VPN DNS"
+      summary: "VPN DNS Server Address"
+      description: |
+        DNS address to resolve the domains correctly
+      is_expand: true
+      is_required: true
+  - search_domain:
+    opts:
+      title: "Search Domain"
+      summary: "Search Domain Address"
+      description: |
+        Search domain address to resolve the domains correctly
+      is_expand: true
+      is_required: true    
+  - port: 443
     opts:
       title: "Port"
       summary: "Open VPN Server Port number"
       is_expand: true
       is_required: true
-  - proto: udp
+  - proto: tcp
     opts:
       title: "Protocol"
       summary: "Open VPN Server Protocol"
@@ -65,6 +81,20 @@ inputs:
       value_options:
         - udp
         - tcp
+  - user: ""
+    opts:
+      title: Username
+      summary: "Username to get authorized for VPN server"
+      description: "Username to get authorized for VPN server"
+      is_required: true
+      is_expand: true
+  - password: ""
+    opts:
+      title: Password
+      summary: "Password to get authorized for VPN server"
+      description: "Password to get authorized for VPN server"
+      is_required: true
+      is_expand: true
   - ca_crt: "$VPN_CA_CRT_BASE64"
     opts:
       title: "Base64 encoded CA Certificate"
@@ -72,17 +102,10 @@ inputs:
       is_expand: true
       is_required: true
       is_sensitive: true
-  - client_crt: "$VPN_CLIENT_CRT_BASE64"
+  - ta_key: "$VPN_TA_KEY"
     opts:
-      title: "Base64 encoded Client Certificate"
-      summary: "Base64 encoded Client Certificate"
-      is_expand: true
-      is_required: true
-      is_sensitive: true
-  - client_key: "$VPN_CLIENT_KEY_BASE64"
-    opts:
-      title: "Base64 encoded Client Private Key"
-      summary: "Base64 encoded Client Private Key"
+      title: "TA Key"
+      summary: "TA Key"
       is_expand: true
       is_required: true
       is_sensitive: true
