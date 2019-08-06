@@ -40,61 +40,68 @@ toolkit:
     entry_file: step.sh
 
 inputs:
-  - host:
+  - host: "$VPN_HOST"
     opts:
       title: "Host"
       summary: "Open VPN Server IP or Hostname"
-      description: |
-        Open VPN Server IP or Hostname.
-        ex1. 111.111.111.111
-        ex2. hoge.com
+      description: "Open VPN Server IP or Hostname"
       is_expand: true
       is_required: true
-  - vpn_dns:
+  - vpn_dns: "$VPN_DNS"
     opts:
       title: "VPN DNS"
       summary: "VPN DNS Server Address"
-      description: |
-        DNS address to resolve the domains correctly
+      description: "DNS address to resolve the domains correctly"
       is_expand: true
       is_required: true
-  - search_domain:
+  - vpn_dns2: "$VPN_DNS2"
+    opts:
+      title: "VPN DNS 2"
+      summary: "Second VPN DNS Server Address"
+      description: "Another DNS address to resolve the domains correctly"
+      is_expand: true
+      is_required: true
+  - search_domain: "$VPN_SEARCH_DOMAIN"
     opts:
       title: "Search Domain"
       summary: "Search Domain Address"
-      description: |
-        Search domain address to resolve the domains correctly
+      description: "Search domain address to resolve the domains correctly"
       is_expand: true
       is_required: true    
-  - port: 443
+  - port: "$VPN_PORT"
     opts:
       title: "Port"
       summary: "Open VPN Server Port number"
+      description: "The port number to connect to Open VPN Server"
       is_expand: true
       is_required: true
-  - proto: tcp
+  - proto: "$VPN_PROTO"
     opts:
       title: "Protocol"
       summary: "Open VPN Server Protocol"
+      description: "The protocol to connect to Open VPN Server"
       is_expand: true
       is_required: true
       value_options:
         - udp
         - tcp
-  - user: ""
+        - tcp-client
+  - user: "$VPN_USER"
     opts:
-      title: Username
+      title: "Username"
       summary: "Username to get authorized for VPN server"
       description: "Username to get authorized for VPN server"
       is_required: true
       is_expand: true
-  - password: ""
+      is_sensitive: true
+  - password: "$VPN_PASSWORD"
     opts:
-      title: Password
+      title: "Password"
       summary: "Password to get authorized for VPN server"
       description: "Password to get authorized for VPN server"
       is_required: true
       is_expand: true
+      is_sensitive: true
   - ca_crt: "$VPN_CA_CRT_BASE64"
     opts:
       title: "Base64 encoded CA Certificate"

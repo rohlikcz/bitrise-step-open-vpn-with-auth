@@ -8,7 +8,8 @@ case "$OSTYPE" in
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
     cat <<EOF > /etc/openvpn/client.conf
 client
-remote ${host} ${port}
+remote ${host}
+port ${port}
 proto ${proto}
 ca 'ca.crt'
 tls-auth 'ta.key' 1
@@ -26,20 +27,20 @@ down-pre
 verb 3
 EOF
     # Write the key, certificate and credentials to respective files
-    echo ${ca_crt} | base64 -d > /etc/openvpn/ca.crt
-    echo ${ta_key} | base64 -d > /etc/openvpn/ta.key
+    echo "${ca_crt}" > /etc/openvpn/ca.crt
+    echo "${ta_key}" > /etc/openvpn/ta.key
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
-    
-    # We add the DNS address to resolve the domains correctly
-    echo "nameserver ${vpn_dns}
-    search ${search_domain}
-    $(cat /etc/resolv.conf)" > /etc/resolv.conf
 
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     service openvpn start
 
     sleep 5
+
+    # We add the DNS address to resolve the domains correctly
+    echo "nameserver ${vpn_dns} ${vpn_dns2}
+    search ${search_domain}
+    $(cat /etc/resolv.conf)" > /etc/resolv.conf
     
     if ifconfig | grep tun0 > /dev/null
     then
@@ -52,16 +53,23 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
     
-    echo ${ca_crt} | base64 -D -o ca.crt > /dev/null 2>&1
-    echo ${ta_key} | base64 -D -o ta.key > /dev/null 2>&1
+    echo "${ca_crt}" > ca.crt
+    echo "${ta_key}" > ta.key
     echo ${user} > auth.txt
     echo ${password} >> auth.txt
+
+    # We call openvpn as a command, indicating all the necessary parameters by command line
+    sudo openvpn --client --tls-client --remote-cert-tls server --resolv-retry infinite --dev tun --proto ${proto} --remote ${host} ${port} --auth-user-pass auth.txt --auth SHA256 --persist-key --persist-tun --compress lz4-v2 --cipher AES-256-CBC --ca ca.crt --tls-auth ta.key --key-direction 1 > /dev/null 2>&1 &
     
+    sleep 5
+
     # Traverse the macOS network adapters and set the DNS in each one
     IFS=$'\n'
      
     # VPN DNS Server
     vpndns=${vpn_dns}
+    vpndns2=${vpn_dns2}
+    searchdomain=${search_domain}
      
     # We store all the adapters to travel them
     adapters=`networksetup -listallnetworkservices |grep -v denotes`
@@ -73,17 +81,13 @@ EOF
      
             if [ $dnssvr != $vpndns ]; then
                     # We set the DNS of the VPN
-                    networksetup -setdnsservers $adapter $vpndns
+                    networksetup -setdnsservers $adapter $vpndns $vpndns2
+                    networksetup -setsearchdomains $adapter $searchdomain
                     else
                     # We reverse the DNS to the originals
                     networksetup -setdnsservers $adapter empty
             fi
-    done 
-    
-    # We call openvpn as a command, indicating all the necessary parameters by command line
-    sudo openvpn --client --dev tun --proto ${proto} --remote ${host} ${port} --auth-user-pass auth.txt --nobind --persist-key  --persist-tun --comp-lzo --verb 3 --cipher AES-256-CBC --ca ca.crt --tls-auth ta.key 1 > /dev/null 2>&1 &
-
-    sleep 5
+    done
 
     if ifconfig -l | grep utun0 > /dev/null
     then
