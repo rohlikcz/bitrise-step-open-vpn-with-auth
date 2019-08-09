@@ -1,7 +1,7 @@
 title: |-
-  Connect to OpenVPN Server with Username and Password Authentication
+  Connect to OpenVPN Server
 summary: |
-  Establish a VPN connection with the specified OpenVPN server.
+  Establish a VPN connection with the specified OpenVPN server and by using a username and a password for authentication.
 description: |
   Before using this step, you need to build an OpenVPN server which requires username and password for authentication in advance.
   This article is helpful for how to construct OpenVPN server.

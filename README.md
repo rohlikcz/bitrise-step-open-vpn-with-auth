@@ -1,6 +1,6 @@
-# Connect to OpenVPN Server step
+# Connect to OpenVPN Server with Username Password Authentication
 
-Establish a VPN connection with the specified OpenVPN server.
+Establish a VPN connection with the specified OpenVPN server and by using a username and a password for authentication.
 
 
 ## How to use this Step
@@ -27,8 +27,28 @@ An example `.bitrise.secrets.yml` file:
 
 ```
 envs:
-- A_SECRET_PARAM_ONE: the value for secret one
-- A_SECRET_PARAM_TWO: the value for secret two
+- VPN_USER: username
+- VPN_PASSWORD: password
+- VPN_HOST: host
+- VPN_DNS: 0.0.0.0
+- VPN_DNS2: 0.0.0.1
+- VPN_SEARCH_DOMAIN: internal.example.com
+- VPN_PORT: 443
+- VPN_PROTO: tcp-client
+- VPN_CA_CRT_BASE64: |
+    -----BEGIN CERTIFICATE-----
+    multiple
+    lines
+    goes
+    here
+    -----END CERTIFICATE-----
+- VPN_TA_KEY: | 
+    -----BEGIN OpenVPN Static key V1-----
+    multiple
+    lines
+    goes
+    here
+    -----END OpenVPN Static key V1-----
 ```
 
 ## How to create your own step
@@ -90,4 +110,6 @@ You can share your Step or step version with the [bitrise CLI](https://github.co
 1. Then run: `bitrise run share-this-step` to share the step (version) you specified in the `envs`
 1. Send the Pull Request, as described in the logs of `bitrise run share-this-step`
 
-That's all ;)
+## Thanks
+
+Thanks to @justice3120 for creating the original step and thanks to @emejuto at https://git.paradigmadigital.com/emejuto for inspiring this step by the repo at https://git.paradigmadigital.com/emejuto/bitrise-openvpn-step.
