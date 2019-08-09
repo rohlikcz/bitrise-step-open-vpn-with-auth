@@ -26,7 +26,7 @@ down /etc/openvpn/update-resolv-conf
 down-pre
 verb 3
 EOF
-    # Write the key, certificate and credentials to respective files
+    # Write the certificate, key and credentials to respective files
     echo "${ca_crt}" > /etc/openvpn/ca.crt
     echo "${ta_key}" > /etc/openvpn/ta.key
     echo ${user} > /etc/openvpn/auth.txt
@@ -37,7 +37,7 @@ EOF
 
     sleep 5
 
-    # We add the DNS address to resolve the domains correctly
+    # We add the DNS IP addresses and search domain to resolve the domains correctly
     echo "nameserver ${vpn_dns} ${vpn_dns2}
     search ${search_domain}
     $(cat /etc/resolv.conf)" > /etc/resolv.conf
@@ -63,15 +63,14 @@ EOF
     
     sleep 5
 
-    # Traverse the macOS network adapters and set the DNS in each one
+    # Traverse the macOS network adapters and set the DNS IP addresses and search domain for each one
     IFS=$'\n'
      
-    # VPN DNS Server
+    # VPN DNS Server IP addresses and search domain
     vpndns=${vpn_dns}
     vpndns2=${vpn_dns2}
     searchdomain=${search_domain}
-     
-    # We store all the adapters to travel them
+    
     adapters=`networksetup -listallnetworkservices |grep -v denotes`
      
     for adapter in $adapters
@@ -80,11 +79,11 @@ EOF
             dnssvr=(`networksetup -getdnsservers $adapter`)
      
             if [ $dnssvr != $vpndns ]; then
-                    # We set the DNS of the VPN
+                    # We set the DNS IP addresses of the VPN
                     networksetup -setdnsservers $adapter $vpndns $vpndns2
                     networksetup -setsearchdomains $adapter $searchdomain
                     else
-                    # We reverse the DNS to the originals
+                    # We reverse the DNS IP address to the originals
                     networksetup -setdnsservers $adapter empty
             fi
     done

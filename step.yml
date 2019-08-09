@@ -1,19 +1,14 @@
 title: |-
-  Connect to OpenVPN Server
+  Connect to OpenVPN Server with Username and Password Authentication
 summary: |
   Establish a VPN connection with the specified OpenVPN server.
 description: |
-  Before using this step, you need to build an OpenVPN server in advance.
+  Before using this step, you need to build an OpenVPN server which requires username and password for authentication in advance.
   This article is helpful for how to construct OpenVPN server.
   https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
 
-
-  After building the VPN server, you need to register the contents of CA certificate, client certificate, client private key, base64 encoded as Bitrise Secret.
-  You can easily retrieve the contents of Base64 with the following command.
-
-  `$ base64 <certificate or private key file path>`
-website: https://github.com/alikayhan/bitrise-step-open-vpn
-source_code_url: https://github.com/alikayhan/bitrise-step-open-vpn
+website: https://github.com/alikayhan/bitrise-step-open-vpn/tree/use_credentials
+source_code_url: https://github.com/alikayhan/bitrise-step-open-vpn/tree/use_credentials
 support_url: https://github.com/alikayhan/bitrise-step-open-vpn/issues
 host_os_tags:
   - osx-10.10
@@ -33,7 +28,6 @@ deps:
   apt_get:
   - name: openvpn
   - name: net-tools
-
 
 toolkit:
   bash:
