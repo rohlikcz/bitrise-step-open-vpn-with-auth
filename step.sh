@@ -7,28 +7,31 @@ case "$OSTYPE" in
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
     cat <<EOF > /etc/openvpn/client.conf
-client
-remote ${host}
-port ${port}
-proto ${proto}
-ca 'ca.crt'
-tls-auth 'ta.key' 1
-auth-user-pass auth.txt
-cipher AES-256-CBC
-comp-lzo yes
 dev tun
-nobind
-persist-key
 persist-tun
-script-security 2
-up /etc/openvpn/update-resolv-conf
-down /etc/openvpn/update-resolv-conf
-down-pre
-verb 3
+persist-key
+cipher AES-256-CBC
+auth SHA256
+tls-client
+client
+resolv-retry infinite
+remote ${host} ${port} ${proto}
+auth-user-pass
+remote-cert-tls server
+compress lz4-v2
+
+<ca>
+${ca_crt}
+</ca>
+setenv CLIENT_CERT 0
+<tls-auth>
+${ta_key}
+</tls-auth>
+key-direction 1
 EOF
     # Write the certificate, key and credentials to respective files
-    echo "${ca_crt}" > /etc/openvpn/ca.crt
-    echo "${ta_key}" > /etc/openvpn/ta.key
+    #echo "${ca_crt}" > /etc/openvpn/ca.crt
+    #echo "${ta_key}" > /etc/openvpn/ta.key
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
 
@@ -36,7 +39,7 @@ EOF
     sudo systemctl enable openvpn@client.service
     sudo service openvpn start
 
-    sleep 10
+    sleep 5
     
     sudo cat /var/log/dmesg
 
