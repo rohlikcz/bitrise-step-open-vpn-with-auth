@@ -32,6 +32,11 @@ EOF
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
 
+    echo 'OPTARGS="--syslog"' >> /etc/default/openvpn
+    echo "/etc/default/openvpn"
+    cat /etc/default/openvpn
+    echo ""
+
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     sudo systemctl enable openvpn@client.service
     sudo service openvpn start
