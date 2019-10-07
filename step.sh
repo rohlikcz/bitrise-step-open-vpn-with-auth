@@ -39,8 +39,8 @@ EOF
     #sudo systemctl enable openvpn@client.service
     sudo service openvpn restart
     
-    sudo cat /var/log/dmesg
-
+    sudo service openvpn status
+    
     # We add the DNS IP addresses and search domain to resolve the domains correctly
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
     
