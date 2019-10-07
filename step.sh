@@ -42,6 +42,8 @@ EOF
     search ${search_domain}
     $(cat /etc/resolv.conf)" > /etc/resolv.conf
     
+    ifconfig
+    
     if ifconfig | grep tun0 > /dev/null
     then
       echo "VPN connection succeeded"
