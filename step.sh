@@ -33,14 +33,15 @@ EOF
     echo ${password} >> /etc/openvpn/auth.txt
 
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
-    service openvpn start
+    service openvpn start --daemon
+    echo "/var/log/messages"
+    cat /var/log/messages
+    echo ""
 
     sleep 5
 
     # We add the DNS IP addresses and search domain to resolve the domains correctly
-    mkdir -p /etc/resolvconf/resolv.conf.d/
-    echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolvconf/resolv.conf.d/base
-    sudo resolvconf -u
+    echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
     
     echo "/etc/openvpn/client.conf"
     cat /etc/openvpn/client.conf
