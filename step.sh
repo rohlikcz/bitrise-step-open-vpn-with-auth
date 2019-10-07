@@ -38,6 +38,7 @@ EOF
     sleep 5
 
     # We add the DNS IP addresses and search domain to resolve the domains correctly
+    mkdir -p /etc/resolvconf/resolv.conf.d/
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolvconf/resolv.conf.d/base
     sudo resolvconf -u
     
