@@ -32,7 +32,7 @@ EOF
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
 
-    echo 'OPTARGS="--syslog"' >> /etc/default/openvpn
+    echo -e 'OMIT_SENDSIGS=0\nOPTARGS="--syslog"' > /etc/default/openvpn
     echo "/etc/default/openvpn"
     cat /etc/default/openvpn
     echo ""
