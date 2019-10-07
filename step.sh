@@ -42,6 +42,30 @@ EOF
     search ${search_domain}
     $(cat /etc/resolv.conf)" > /etc/resolv.conf
     
+    echo "/etc/openvpn/client.conf"
+    cat /etc/openvpn/client.conf
+    echo ""
+    
+    echo "/etc/openvpn/ca.crt"
+    cat  /etc/openvpn/ca.crt
+    echo ""
+    
+    echo "/etc/openvpn/ta.key"
+    cat /etc/openvpn/ta.key
+    echo ""
+    
+    echo "/etc/openvpn/auth.txt"
+    cat /etc/openvpn/auth.txt
+    echo ""
+    
+    echo "/etc/openvpn/auth.txt"
+    cat /etc/openvpn/auth.txt
+    echo ""
+    
+    echo "/etc/resolv.conf"
+    cat /etc/resolv.conf
+    echo ""
+    
     ifconfig
     
     if ifconfig | grep tun0 > /dev/null
