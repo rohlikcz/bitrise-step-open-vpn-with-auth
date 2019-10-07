@@ -37,7 +37,7 @@ EOF
 
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #sudo systemctl enable openvpn@client.service
-    sudo service openvpn start
+    sudo service openvpn restart
     
     sudo cat /var/log/dmesg
 
