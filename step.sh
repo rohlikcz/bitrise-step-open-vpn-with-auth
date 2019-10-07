@@ -33,7 +33,8 @@ EOF
     echo ${password} >> /etc/openvpn/auth.txt
 
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
-    service openvpn start --daemon
+    sudo systemctl enable openvpn@client.service
+    sudo service openvpn@client start
     echo "/var/log/messages"
     cat /var/log/messages
     echo ""
