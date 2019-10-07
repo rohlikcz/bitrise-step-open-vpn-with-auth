@@ -37,6 +37,8 @@ EOF
     cat /etc/default/openvpn
     echo ""
 
+    ls /var/log
+
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     sudo systemctl enable openvpn@client.service
     sudo service openvpn start
