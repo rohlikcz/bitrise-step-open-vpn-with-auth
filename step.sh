@@ -38,7 +38,7 @@ EOF
 
     sleep 5
     
-    sudo service openvpn status
+    sudo cat /var/log/syslog
 
     # We add the DNS IP addresses and search domain to resolve the domains correctly
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
