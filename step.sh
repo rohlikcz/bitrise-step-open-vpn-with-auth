@@ -36,7 +36,7 @@ EOF
     #sudo systemctl enable openvpn@client.service
     service openvpn start
     #openvpn --config /etc/openvpn/client.conf
-    
+    set +e
     apt install resolvconf -y || true
     
     # We add the DNS IP addresses and search domain to resolve the domains correctly
