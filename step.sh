@@ -28,11 +28,7 @@ auth-user-pass
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #sudo systemctl enable openvpn@client.service
-    sudo service openvpn restart
-    
-    sleep 5
-    
-    sudo service openvpn status
+    service openvpn start
     
     # We add the DNS IP addresses and search domain to resolve the domains correctly
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
