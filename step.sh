@@ -30,6 +30,8 @@ EOF
     #sudo systemctl enable openvpn@client.service
     sudo service openvpn restart
     
+    sleep 5
+    
     sudo service openvpn status
     
     # We add the DNS IP addresses and search domain to resolve the domains correctly
