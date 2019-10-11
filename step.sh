@@ -25,7 +25,7 @@ comp-lzo
 verb 3
 ca /etc/openvpn/ca.crt
 tls-auth /etc/openvpn/ta.key
-auth-user-pass
+auth-user-pass /etc/openvpn/auth.txt
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #sudo systemctl enable openvpn@client.service
