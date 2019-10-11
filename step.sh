@@ -15,8 +15,7 @@ case "$OSTYPE" in
     cat <<EOF > /etc/openvpn/client.conf
 client
 dev tun
-proto ${proto}
-remote ${host} ${port}
+remote ${host} ${port} ${proto}
 resolv-retry infinite
 nobind
 persist-key
@@ -26,6 +25,12 @@ verb 3
 ca /etc/openvpn/ca.crt
 tls-auth /etc/openvpn/ta.key
 auth-user-pass /etc/openvpn/auth.txt
+cipher AES-256-CBC
+auth SHA256
+tls-client
+remote-cert-tls server
+setenv CLIENT_CERT 0
+key-direction 1
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #sudo systemctl enable openvpn@client.service
@@ -36,6 +41,8 @@ EOF
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
     
     ifconfig
+    
+    ping -c 1 https://jira.internal.babbel.com
     
     if ifconfig | grep tun0 > /dev/null
     then
