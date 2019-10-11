@@ -4,37 +4,27 @@ set -eu
 case "$OSTYPE" in
   linux*)
     echo "Configuring for Ubuntu"
-    
-    # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
-    cat <<EOF > /etc/openvpn/client.conf
-dev tun
-persist-tun
-persist-key
-cipher AES-256-CBC
-auth SHA256
-tls-client
-client
-resolv-retry infinite
-remote ${host} ${port} ${proto}
-auth-user-pass
-remote-cert-tls server
-compress lz4-v2
+    echo "Configuring for Ubuntu"
 
-<ca>
-${ca_crt}
-</ca>
-setenv CLIENT_CERT 0
-<tls-auth>
-${ta_key}
-</tls-auth>
-key-direction 1
-EOF
-    # Write the certificate, key and credentials to respective files
-    #echo "${ca_crt}" > /etc/openvpn/ca.crt
-    #echo "${ta_key}" > /etc/openvpn/ta.key
+    echo ${ca_crt} | base64 -d > /etc/openvpn/ca.crt
+    echo "${ta_key}" | base64 -d  > /etc/openvpn/ta.key
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
 
+    cat <<EOF > /etc/openvpn/client.conf
+client
+dev tun
+proto ${proto}
+remote ${host} ${port}
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+comp-lzo
+verb 3
+ca ca.crt
+auth-user-pass
+EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #sudo systemctl enable openvpn@client.service
     sudo service openvpn restart
