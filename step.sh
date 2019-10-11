@@ -33,20 +33,16 @@ setenv CLIENT_CERT 0
 key-direction 1
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
-    #sudo systemctl enable openvpn@client.service
     service openvpn start
-    #openvpn --config /etc/openvpn/client.conf
+
+    # bitrise machines exit on error. We don't want this for this script so we can install resolvconf
     set +e
+    # resolvconf fails in bitrise machines because it can't delete a file shared with the host machine. Let's ignore it    
     apt install resolvconf -y || true
     
-    # We add the DNS IP addresses and search domain to resolve the domains correctly
+    # We add the DNS IP addresses and search domain to resolve the domains correctly and restart resolvconf
     echo -e "nameserver ${vpn_dns}\nnameserver ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolvconf/resolv.conf.d/base
     service resolvconf restart
-    
-    cat /etc/resolv.conf
-    
-    apt install iputils-ping -y
-    ping -c 1 https://jira.internal.babbel.com
     
     if ifconfig | grep tun0 > /dev/null
     then
