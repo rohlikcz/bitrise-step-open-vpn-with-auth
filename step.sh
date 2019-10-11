@@ -42,7 +42,7 @@ EOF
     
     ifconfig
     
-    apt install iputils-ping
+    apt install iputils-ping -y
     ping -c 1 https://jira.internal.babbel.com
     
     if ifconfig | grep tun0 > /dev/null
