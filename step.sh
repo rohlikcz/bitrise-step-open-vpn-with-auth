@@ -38,7 +38,7 @@ EOF
     #openvpn --config /etc/openvpn/client.conf
     
     # We add the DNS IP addresses and search domain to resolve the domains correctly
-    echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
+    echo -e "nameserver ${vpn_dns}\nnameserver ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
     
     cat /etc/resolv.conf
     
