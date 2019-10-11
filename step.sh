@@ -40,7 +40,7 @@ EOF
     # We add the DNS IP addresses and search domain to resolve the domains correctly
     echo -e "nameserver ${vpn_dns} ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
     
-    cat /etc/network/interfaces
+    cat /etc/resolv.conf
     
     apt install iputils-ping -y
     ping -c 1 https://jira.internal.babbel.com
