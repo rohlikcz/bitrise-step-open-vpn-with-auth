@@ -37,8 +37,11 @@ EOF
     service openvpn start
     #openvpn --config /etc/openvpn/client.conf
     
+    apt install resolvconf -y
+    
     # We add the DNS IP addresses and search domain to resolve the domains correctly
-    echo -e "nameserver ${vpn_dns}\nnameserver ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolv.conf
+    echo -e "nameserver ${vpn_dns}\nnameserver ${vpn_dns2}\nsearch ${search_domain}\n$(cat /etc/resolv.conf)" > /etc/resolvconf/resolv.conf.d/base
+    service resolvconf restart
     
     cat /etc/resolv.conf
     
