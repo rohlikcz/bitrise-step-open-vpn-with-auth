@@ -4,9 +4,10 @@ set -eu
 case "$OSTYPE" in
   linux*)
     echo "Configuring for Ubuntu"
-    echo "Configuring for Ubuntu"
 
-    echo ${ca_crt} | base64 -d > /etc/openvpn/ca.crt
+    echo "Preparing CA"
+    echo "${ca_crt}" | base64 -d > /etc/openvpn/ca.crt
+    echo "Preparing TA"
     echo "${ta_key}" | base64 -d  > /etc/openvpn/ta.key
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
