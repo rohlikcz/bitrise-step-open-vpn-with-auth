@@ -23,7 +23,8 @@ persist-key
 persist-tun
 comp-lzo
 verb 3
-ca ca.crt
+ca /etc/openvpn/ca.crt
+tls-auth /etc/openvpn/ta.key
 auth-user-pass
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
