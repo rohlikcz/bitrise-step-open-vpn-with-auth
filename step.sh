@@ -38,7 +38,9 @@ EOF
     # bitrise machines exit on error. We don't want this for this script so we can install resolvconf
     set +e
     
-    mv /etc/resolv.conf ~/
+    # Make docker follow another resolv conf so we can remove the current one
+    ln -s /etc/resolve.conf /etc/resolve.conf-docker
+    rm /etc/resolv.conf
     
     # resolvconf fails in bitrise machines because it can't delete a file shared with the host machine. Let's ignore it    
     apt install resolvconf -y || true
