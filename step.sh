@@ -37,6 +37,9 @@ EOF
 
     # bitrise machines exit on error. We don't want this for this script so we can install resolvconf
     set +e
+    
+    mv /etc/resolv.conf ~/
+    
     # resolvconf fails in bitrise machines because it can't delete a file shared with the host machine. Let's ignore it    
     apt install resolvconf -y || true
     
