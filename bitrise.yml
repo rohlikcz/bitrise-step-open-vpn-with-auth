@@ -6,14 +6,7 @@ app:
   # Define the following secrets in .bitrise.secrets.yml
   - VPN_USER: $VPN_USER
   - VPN_PASSWORD: $VPN_PASSWORD
-  - VPN_HOST: $VPN_HOST
-  - VPN_DNS: $VPN_DNS
-  - VPN_DNS2: $VPN_DNS2
-  - VPN_SEARCH_DOMAIN: $VPN_SEARCH_DOMAIN
-  - VPN_PORT: $VPN_PORT
-  - VPN_PROTO: $VPN_PROTO
-  - VPN_CA_CRT_BASE64: $VPN_CA_CRT_BASE64
-  - VPN_TA_KEY: $VPN_TA_KEY 
+  - VPN_OVPN_FILE: $VPN_OVPN_FILE
   # If you want to share this step into a StepLib
   - BITRISE_STEP_ID: open-vpn-auth-user-pass
   - BITRISE_STEP_VERSION: "0.0.1"
@@ -26,15 +19,8 @@ workflows:
     - script:
         inputs:
         - host: "$VPN_HOST"
-        - vpn_dns: "$VPN_DNS"
-        - vpn_dns2: "VPN_DNS2"
-        - search_domain: "$VPN_SEARCH_DOMAIN"
-        - port: "$VPN_PORT"
-        - proto: "$VPN_PROTO"
         - user: "$VPN_USER"
-        - password: "$VPN_PASSWORD"
-        - ca_crt: "$VPN_CA_CRT_BASE64"
-        - ta_key: "$VPN_TA_KEY"
+        - ovpn_file: "$VPN_OVPN_FILE"
     - change-workdir:
         title: Switch working dir to test / _tmp dir
         description: |-

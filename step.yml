@@ -34,52 +34,13 @@ toolkit:
     entry_file: step.sh
 
 inputs:
-  - host: "$VPN_HOST"
+  - ovpn_file: "$VPN_OVPN_FILE"
     opts:
-      title: "Host"
-      summary: "Open VPN Server IP or Hostname"
-      description: "Open VPN Server IP or Hostname"
+      title: "Ovpn file"
+      summary: "Open VPN file"
+      description: "Open VPN file"
       is_expand: true
       is_required: true
-  - vpn_dns: "$VPN_DNS"
-    opts:
-      title: "VPN DNS"
-      summary: "VPN DNS Server Address"
-      description: "DNS address to resolve the domains correctly"
-      is_expand: true
-      is_required: true
-  - vpn_dns2: "$VPN_DNS2"
-    opts:
-      title: "VPN DNS 2"
-      summary: "Second VPN DNS Server Address"
-      description: "Another DNS address to resolve the domains correctly"
-      is_expand: true
-      is_required: true
-  - search_domain: "$VPN_SEARCH_DOMAIN"
-    opts:
-      title: "Search Domain"
-      summary: "Search Domain Address"
-      description: "Search domain address to resolve the domains correctly"
-      is_expand: true
-      is_required: true    
-  - port: "$VPN_PORT"
-    opts:
-      title: "Port"
-      summary: "Open VPN Server Port number"
-      description: "The port number to connect to Open VPN Server"
-      is_expand: true
-      is_required: true
-  - proto: "$VPN_PROTO"
-    opts:
-      title: "Protocol"
-      summary: "Open VPN Server Protocol"
-      description: "The protocol to connect to Open VPN Server"
-      is_expand: true
-      is_required: true
-      value_options:
-        - udp
-        - tcp
-        - tcp-client
   - user: "$VPN_USER"
     opts:
       title: "Username"
@@ -95,18 +56,4 @@ inputs:
       description: "Password to get authorized for VPN server"
       is_required: true
       is_expand: true
-      is_sensitive: true
-  - ca_crt: "$VPN_CA_CRT_BASE64"
-    opts:
-      title: "Base64 encoded CA Certificate"
-      summary: "Base64 encoded CA Certificate"
-      is_expand: true
-      is_required: true
-      is_sensitive: true
-  - ta_key: "$VPN_TA_KEY"
-    opts:
-      title: "TA Key"
-      summary: "TA Key"
-      is_expand: true
-      is_required: true
       is_sensitive: true
