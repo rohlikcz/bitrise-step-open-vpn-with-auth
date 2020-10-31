@@ -26,6 +26,7 @@ deps:
   brew:
   - name: openvpn
   apt_get:
+  - name: iputils-ping #todo vyhodit
   - name: openvpn
   - name: net-tools
 
