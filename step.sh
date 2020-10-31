@@ -22,8 +22,6 @@ EOF
     
     sleep 5
     
-    ping -c 1 git.rhldev.cz
-    
     if ifconfig | grep tun0 > /dev/null
     then
       echo "VPN connection succeeded"
