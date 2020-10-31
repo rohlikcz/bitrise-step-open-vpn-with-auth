@@ -4,6 +4,7 @@ set -eu
 case "$OSTYPE" in
   linux*)
     echo "Configuring for Ubuntu"
+    echo "Log 1"
 
     echo "Preparing CA"
     echo "${ca_crt}" > /etc/openvpn/ca.crt
@@ -34,6 +35,8 @@ key-direction 1
 EOF
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     service openvpn start
+    
+    echo "Log 2"
 
     # bitrise machines exit on error. We don't want this for this script so we can install resolvconf
     set +e
