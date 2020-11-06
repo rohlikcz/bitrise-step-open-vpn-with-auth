@@ -13,6 +13,7 @@ EOF
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
     
+    echo "hellou"
     echo ${ovpn_file}
     
     #cat /etc/openvpn/client.conf
