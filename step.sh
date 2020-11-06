@@ -13,12 +13,6 @@ EOF
     echo ${user} > /etc/openvpn/auth.txt
     echo ${password} >> /etc/openvpn/auth.txt
     
-    echo "hellou"
-    echo ${ovpn_file}
-    
-    #cat /etc/openvpn/client.conf
-    #cat /etc/openvpn/auth.txt
-    
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #service openvpn start
     openvpn --config /etc/openvpn/client.conf &
