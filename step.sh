@@ -52,14 +52,14 @@ EOF
     sleep 5
 
     # Traverse the macOS network adapters and set the DNS IP addresses and search domain for each one
-    IFS=$'\n'
+    #IFS=$'\n'
      
     # VPN DNS Server IP addresses and search domain
     #vpndns=${vpn_dns}
     #vpndns2=${vpn_dns2}
     #searchdomain=${search_domain}
     
-    adapters=`networksetup -listallnetworkservices |grep -v denotes`
+    #adapters=`networksetup -listallnetworkservices |grep -v denotes`
      
      
 #    for adapter in $adapters
