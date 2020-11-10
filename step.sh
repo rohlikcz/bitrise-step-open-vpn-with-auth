@@ -77,6 +77,8 @@ EOF
 #            fi
 #    done
 
+ifconfig
+
     if ifconfig -l | grep utun0 > /dev/null
     then
       echo "VPN connection succeeded"
