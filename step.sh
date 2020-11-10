@@ -61,20 +61,21 @@ EOF
     
     adapters=`networksetup -listallnetworkservices |grep -v denotes`
      
-    for adapter in $adapters
-    do
-            echo updating dns for $adapter
-            dnssvr=(`networksetup -getdnsservers $adapter`)
      
-            if [ $dnssvr != $vpndns ]; then
-                    # We set the DNS IP addresses of the VPN
-                    networksetup -setdnsservers $adapter $vpndns $vpndns2
-                    networksetup -setsearchdomains $adapter $searchdomain
-                    else
-                    # We reverse the DNS IP address to the originals
-                    networksetup -setdnsservers $adapter empty
-            fi
-    done
+#    for adapter in $adapters
+#    do
+#            echo updating dns for $adapter
+#            dnssvr=(`networksetup -getdnsservers $adapter`)
+#     
+#            if [ $dnssvr != $vpndns ]; then
+#                    # We set the DNS IP addresses of the VPN
+#                    networksetup -setdnsservers $adapter $vpndns $vpndns2
+#                    networksetup -setsearchdomains $adapter $searchdomain
+#                    else
+#                    # We reverse the DNS IP address to the originals
+#                    networksetup -setdnsservers $adapter empty
+#            fi
+#    done
 
     if ifconfig -l | grep utun0 > /dev/null
     then
