@@ -33,12 +33,12 @@ EOF
     
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
-    cat <<EOF > /etc/openvpn/client.conf
+    cat <<EOF > ./client.conf
 ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
-    echo ${user} > /etc/openvpn/auth.txt
-    echo ${password} >> /etc/openvpn/auth.txt
+    echo ${user} > ./auth.txt
+    echo ${password} >> ./auth.txt
     
     #echo "${ca_crt}" > ca.crt
     #echo "${ta_key}" > ta.key
