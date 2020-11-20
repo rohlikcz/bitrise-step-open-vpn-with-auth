@@ -53,7 +53,8 @@ EOF
     
     cat /etc/hosts
     
-    sudo echo "10.20.0.18 git.rhldev.cz" >> /etc/hosts
+    #sudo echo "10.20.0.18 git.rhldev.cz" >> /etc/hosts
+    sudo sed -i "2i10.20.0.18  git.rhldev.cz" /etc/hosts
 
     # Traverse the macOS network adapters and set the DNS IP addresses and search domain for each one
     #IFS=$'\n'
