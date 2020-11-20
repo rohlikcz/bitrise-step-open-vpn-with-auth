@@ -60,7 +60,6 @@ EOF
     #For debug add '--log ./openvpn/ovpn-pls.log --verb 5' and call 'sudo cat ./openvpn/ovpn-pls.log'
     sudo openvpn --config ./openvpn/client.conf > /dev/null 2>&1 &
     
-    
     sleep 5
 
     if ifconfig -l | grep utun0 > /dev/null
