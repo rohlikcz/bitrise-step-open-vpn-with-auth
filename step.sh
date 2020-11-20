@@ -30,22 +30,22 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
     
-    sudo mkdir /etc/openvpn
-    sudo touch /etc/openvpn/client.conf
+    sudo mkdir ./openvpn
+    sudo touch ./openvpn/client.conf
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
-    cat <<EOF > /etc/openvpn/client.conf
+    cat <<EOF > ./openvpn/client.conf
 ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
-    sudo touch /etc/openvpn/auth.txt
-    sudo echo ${user} > /etc/openvpn/auth.txt
-    sudo echo ${password} >> /etc/openvpn/auth.txt
+    sudo touch ./openvpn/auth.txt
+    sudo echo ${user} > ./openvpn/auth.txt
+    sudo echo ${password} >> ./openvpn/auth.txt
 
     # We call openvpn as a command, indicating all the necessary parameters by command line
     #sudo openvpn --client --tls-client --remote-cert-tls server --resolv-retry infinite --dev tun --proto ${proto} --remote ${host} ${port} --auth-user-pass auth.txt --auth SHA256 --persist-key --persist-tun --compress lz4-v2 --cipher AES-256-CBC --ca ca.crt --tls-auth ta.key --key-direction 1 > /dev/null 2>&1 &
     #sudo openvpn --config ./client.conf > /dev/null 2>&1 &
-    sudo openvpn --config /etc/openvpn/client.conf
+    sudo openvpn --config ./openvpn/client.conf
     
     sleep 5
     
