@@ -53,6 +53,8 @@ EOF
     
     sleep 5
     
+    echo "yay"
+    
     cat ./openvpn/ovpn-pls.log
     
     #cat /etc/hosts
