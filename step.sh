@@ -1,5 +1,21 @@
 #!/bin/bash
 set -eu
+    
+if [ -z "${user}" ]
+then
+  echo "username is empty"
+  exit 1
+fi
+if [ -z "${password}" ]
+then
+  echo "password is empty"
+  exit 1
+fi
+if [ -z "${ovpn_file}" ]
+then
+  echo "ovpn file is empty"
+  exit 1
+fi
 
 case "$OSTYPE" in
   linux*)
