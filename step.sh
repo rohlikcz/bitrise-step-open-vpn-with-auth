@@ -30,7 +30,7 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
     
-    #mkdir ./openvpn
+    mkdir ./openvpn
     #touch ./openvpn/client.conf
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
