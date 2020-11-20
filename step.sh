@@ -43,6 +43,8 @@ EOF
     echo ${password} >> ./openvpn/auth.txt
     
     cat ./openvpn/auth.txt
+    
+    ls -l ./openvpn
 
     # We call openvpn as a command, indicating all the necessary parameters by command line
     #sudo openvpn --client --tls-client --remote-cert-tls server --resolv-retry infinite --dev tun --proto ${proto} --remote ${host} ${port} --auth-user-pass auth.txt --auth SHA256 --persist-key --persist-tun --compress lz4-v2 --cipher AES-256-CBC --ca ca.crt --tls-auth ta.key --key-direction 1 > /dev/null 2>&1 &
