@@ -51,36 +51,36 @@ EOF
     
     sleep 5
     
-    cat /etc/hosts
+    #cat /etc/hosts
     
-    sudo echo "10.20.0.18 git.rhldev.cz" >> /etc/hosts
+    #sudo echo "10.20.0.18 git.rhldev.cz" >> /etc/hosts
     #sudo sed -i '' "2i10.20.0.18  git.rhldev.cz" /etc/hosts
 
     # Traverse the macOS network adapters and set the DNS IP addresses and search domain for each one
-    #IFS=$'\n'
+    IFS=$'\n'
      
     # VPN DNS Server IP addresses and search domain
-    #vpndns=${vpn_dns}
-    #vpndns2=${vpn_dns2}
+    vpndns="10.20.0.5"
+    vpndns2="10.20.0.1"
     #searchdomain=${search_domain}
     
-    #adapters=`networksetup -listallnetworkservices |grep -v denotes`
+    adapters=`networksetup -listallnetworkservices |grep -v denotes`
      
      
-#    for adapter in $adapters
-#    do
-#            echo updating dns for $adapter
-#            dnssvr=(`networksetup -getdnsservers $adapter`)
-#     
-#            if [ $dnssvr != $vpndns ]; then
-#                    # We set the DNS IP addresses of the VPN
-#                    networksetup -setdnsservers $adapter $vpndns $vpndns2
-#                    networksetup -setsearchdomains $adapter $searchdomain
-#                    else
-#                    # We reverse the DNS IP address to the originals
-#                    networksetup -setdnsservers $adapter empty
-#            fi
-#    done
+    for adapter in $adapters
+    do
+            echo updating dns for $adapter
+            dnssvr=(`networksetup -getdnsservers $adapter`)
+     
+            if [ $dnssvr != $vpndns ]; then
+                    # We set the DNS IP addresses of the VPN
+                    networksetup -setdnsservers $adapter $vpndns $vpndns2
+                    #networksetup -setsearchdomains $adapter $searchdomain
+                    else
+                    # We reverse the DNS IP address to the originals
+                    networksetup -setdnsservers $adapter empty
+            fi
+    done
 
 ifconfig
 
