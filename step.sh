@@ -30,15 +30,15 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
     
-    mkdir ./openvpn
-    touch ./openvpn/client.conf
+    #mkdir ./openvpn
+    #touch ./openvpn/client.conf
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
     cat <<EOF > ./openvpn/client.conf
 ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
-    touch ./openvpn/auth.txt
+    #touch ./openvpn/auth.txt
     echo ${user} > ./openvpn/auth.txt
     echo ${password} >> ./openvpn/auth.txt
     
