@@ -33,21 +33,17 @@ EOF
     
     
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
-    sudo cat <<EOF > /etc/openvpn/client.conf
+    cat <<EOF > ./client.conf
 ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
     echo ${user} > ./auth.txt
     echo ${password} >> ./auth.txt
-    
-    #echo "${ca_crt}" > ca.crt
-    #echo "${ta_key}" > ta.key
-    #echo ${user} > auth.txt
-    #echo ${password} >> auth.txt
 
     # We call openvpn as a command, indicating all the necessary parameters by command line
     #sudo openvpn --client --tls-client --remote-cert-tls server --resolv-retry infinite --dev tun --proto ${proto} --remote ${host} ${port} --auth-user-pass auth.txt --auth SHA256 --persist-key --persist-tun --compress lz4-v2 --cipher AES-256-CBC --ca ca.crt --tls-auth ta.key --key-direction 1 > /dev/null 2>&1 &
-    sudo openvpn --config ./client.conf > /dev/null 2>&1 &
+    #sudo openvpn --config ./client.conf > /dev/null 2>&1 &
+    sudo openvpn --config ./client.conf
     
     sleep 5
     
