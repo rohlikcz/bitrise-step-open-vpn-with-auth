@@ -50,6 +50,8 @@ EOF
     sudo openvpn --config ./client.conf > /dev/null 2>&1 &
     
     sleep 5
+    
+    echo "10.20.0.18 git.rhldev.cz" >> /etc/hosts
 
     # Traverse the macOS network adapters and set the DNS IP addresses and search domain for each one
     #IFS=$'\n'
