@@ -57,7 +57,7 @@ EOF
     
     echo "yay"
     
-    cat ./openvpn/ovpn-pls.log
+    sudo cat ./openvpn/ovpn-pls.log
     
     #cat /etc/hosts
     
