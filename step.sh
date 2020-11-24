@@ -26,12 +26,12 @@ case "$OSTYPE" in
 ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
-    echo ${user} > /etc/openvpn/auth.txt
-    echo ${password} >> /etc/openvpn/auth.txt
+    echo ${user} > /etc/openvpn/auth.conf
+    echo ${password} >> /etc/openvpn/auth.conf
     
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #service openvpn start
-    openvpn --config /etc/openvpn/client.conf &
+    openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
     sleep 5
     
