@@ -54,11 +54,11 @@ ${ovpn_file}
 EOF
     # Write the certificate, key and credentials to respective files
     #touch ./openvpn/auth.txt
-    echo ${user} > ./openvpn/auth.txt
-    echo ${password} >> ./openvpn/auth.txt
+    echo ${user} > ./openvpn/auth.conf
+    echo ${password} >> ./openvpn/auth.conf
     
     #For debug add '--log ./openvpn/ovpn-pls.log --verb 5' and call 'sudo cat ./openvpn/ovpn-pls.log'
-    sudo openvpn --config ./openvpn/client.conf > /dev/null 2>&1 &
+    sudo openvpn --config ./openvpn/client.conf --auth-user-pass ./openvpn/auth.conf > /dev/null 2>&1 &
     
     sleep 5
 
