@@ -63,7 +63,7 @@ EOF
     sudo openvpn --config ./openvpn/client.conf --auth-user-pass ./openvpn/auth.conf > /dev/null 2>&1 &
     
     echo "$(date) Sleeping"
-    sleep 60
+    sleep 15
     echo "$(date) Fully awake"
 
     if ifconfig -l | grep utun0 > /dev/null
