@@ -31,7 +31,6 @@ EOF
     
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #service openvpn start
-    openvpn --version
     openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
     echo "$(date) Sleeping"
