@@ -21,6 +21,20 @@ case "$OSTYPE" in
   linux*)
     echo "Configuring for Ubuntu"
     
+connect() {
+    echo "$(date) Sleeping $1"
+    sleep $1
+    echo "$(date) Fully awake"
+    
+    if ifconfig | grep tun0 > /dev/null
+    then
+      echo "VPN with timeout $1 connection succeeded"
+      return 0
+    else
+      echo "VPN with timeout $1 connection failed!"
+      return 1
+    fi
+}
     # We create the .conf file with the parameters of the VPN, including the authorization through the txt file
     cat <<EOF > /etc/openvpn/client.conf
 ${ovpn_file}
@@ -33,16 +47,27 @@ EOF
     #service openvpn start
     openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
-    echo "$(date) Sleeping"
-    sleep 90
-    echo "$(date) Fully awake"
-    
-    if ifconfig | grep tun0 > /dev/null
+    if (connect 5)
     then
       echo "VPN connection succeeded"
     else
-      echo "VPN connection failed!"
-      exit 1
+        if (connect 15)
+        then
+          echo "VPN connection succeeded"
+        else
+        if (connect 30)
+            then
+              echo "VPN connection succeeded"
+            else
+                if (connect 90)
+                then
+                  echo "VPN connection succeeded"
+                else
+                  echo "VPN connection failed!"
+                  exit 1
+                fi
+            fi
+        fi
     fi
     ;;
   darwin*)
