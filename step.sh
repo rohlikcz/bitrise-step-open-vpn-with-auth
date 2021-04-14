@@ -35,7 +35,7 @@ EOF
     openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
     echo "$(date) Sleeping"
-    sleep 15
+    sleep 120
     echo "$(date) Fully awake"
     
     if ifconfig | grep tun0 > /dev/null
