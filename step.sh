@@ -31,6 +31,7 @@ EOF
     
     # We start the VPN service. By default, openvpn takes the client.conf file from the path /etc/openvpn
     #service openvpn start
+    openvpn --version
     openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
     echo "$(date) Sleeping"
@@ -63,7 +64,7 @@ EOF
     sudo openvpn --config ./openvpn/client.conf --auth-user-pass ./openvpn/auth.conf > /dev/null 2>&1 &
     
     echo "$(date) Sleeping"
-    sleep 15
+    sleep 5
     echo "$(date) Fully awake"
 
     if ifconfig -l | grep utun0 > /dev/null
