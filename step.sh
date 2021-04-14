@@ -33,7 +33,9 @@ EOF
     #service openvpn start
     openvpn --config /etc/openvpn/client.conf --auth-user-pass /etc/openvpn/auth.conf &
     
+    echo "sleeping 15s"
     sleep 15
+    echo "Oh, what a nice sleep, so much rest"
     
     if ifconfig | grep tun0 > /dev/null
     then
@@ -60,7 +62,9 @@ EOF
     #For debug add '--log ./openvpn/ovpn-pls.log --verb 5' and call 'sudo cat ./openvpn/ovpn-pls.log'
     sudo openvpn --config ./openvpn/client.conf --auth-user-pass ./openvpn/auth.conf > /dev/null 2>&1 &
     
+    echo "sleeping 15s"
     sleep 15
+    echo "Oh, what a nice sleep, so much rest"
 
     if ifconfig -l | grep utun0 > /dev/null
     then
